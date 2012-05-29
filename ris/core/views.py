@@ -49,14 +49,15 @@ def search_by_id(patient_id):
 @bp.route('/patient/<surname>/<forenames>/<dob>')
 @bp.route('/patient/<surname>/<forenames>/<dob>/<sex>')
 def search_by_name(surname, forenames=None, dob=None, sex=None):
-	search = surname
+	search = db.session.query(Patient).filter(Patient.surname==surname)
 	if forenames:
-		search += forenames
+		search = search.filter(Patient.forenames == forenames)
 		if dob:
-			search += dob
+			search = search.filter(Patient.dob == dob)
 			if sex:
-				search += sex
-	return 'search for patiet name %s' % search
+				search = search.filter(Patient.sex == sex)
+
+	return render_template('patient_list.html', patient_list=search.all())
 
 class PatientRegistrationForm(Form):
 	title = TextField('Title')

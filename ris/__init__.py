@@ -20,4 +20,5 @@ def create_app():
 	
 	# start up sqlalchemny
 	db.init_app(app)
+	db.echo = True
 	return app
