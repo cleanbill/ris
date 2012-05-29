@@ -1,0 +1,11 @@
+{% from "_helper.html" import render_field %}
+<form method=post action="/register">
+  <dl>
+    {{ render_field(form.title) }}
+    {{ render_field(form.forenames) }}
+    {{ render_field(form.surname) }}
+    {{ render_field(form.dob) }}
+    {{ render_field(form.sex) }}
+  </dl>
+  <p><input type=submit value=Register>
+</form>
