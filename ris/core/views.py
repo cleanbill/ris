@@ -36,6 +36,27 @@ def show_patients():
 
 	return render_template('patient_list.html', patient_list=patient_list)
 
+@bp.route('/patient/<int:patient_id>')
+def search_by_id(patient_id):
+	patient = db.session.query(Patient).filter(Patient.id == patient_id).first()
+	if patient:
+		return patient.fullname()
+	else:
+		return 'patient not found'
+
+@bp.route('/patient/<surname>')
+@bp.route('/patient/<surname>/<forenames>')
+@bp.route('/patient/<surname>/<forenames>/<dob>')
+@bp.route('/patient/<surname>/<forenames>/<dob>/<sex>')
+def search_by_name(surname, forenames=None, dob=None, sex=None):
+	search = surname
+	if forenames:
+		search += forenames
+		if dob:
+			search += dob
+			if sex:
+				search += sex
+	return 'search for patiet name %s' % search
 
 class PatientRegistrationForm(Form):
 	title = TextField('Title')
