@@ -1,13 +1,17 @@
-<html>
-<head>
-<title>Cleanbill RIS</title>
+{% extends "base.html" %}
 
-</head>
+{% block content %}
 
-<body>
-<a href="/register">New Patient</a><br>
-<a href="/patients">List all patients</a> <br>
-<a href="/search">Patient Search</a><br>
-</body>
+<div class="row">
+<div class="span8">
+<h1>Welcome to Cleanbill</h1>
 
-</html>
+</div>
+</div>
+<div class="row">
+<div class="span3"><h2>Stuff!</h2><p>blah blah blah</div>
+<div class="span3"><h2>Things!</h2></div>
+<div class="span3"><h2>Misc!</h2></div>
+</div>
+
+{% endblock %}

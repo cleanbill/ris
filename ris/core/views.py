@@ -28,7 +28,7 @@ def register_patient():
 
 @bp.route('/')
 def mainpage():
-	return render_template('main.html')
+	return render_template('index.html')
 
 @bp.route('/search', methods=['GET', 'POST'])
 def search_patient():

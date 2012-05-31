@@ -51,14 +51,30 @@
       </div>
     </div>
 
-    {% block content %}
-    <div class="container">
 
-      <h1>Bootstrap starter template</h1>
-      <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
+    <div class="row">
+      <div class="span3">
+        <div>
+          <ul>
+            <li>side bar 1</li>
+            <li>side bar 2</li>
+            <li>side bar 3</li>
+            <li>side bar 4</li>
+          </ul>
+        </div>
+      </div>
+      <div class="span9">
+        {% block content %}
+        <div class="container">
 
-    </div> <!-- /container -->
-    {% endblock %}
+          <h1>Bootstrap starter template</h1>
+          <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
+
+        </div> <!-- /container -->
+        {% endblock %}
+
+      </div>      
+    </div>
 
     <!-- Le javascript
     ================================================== -->
