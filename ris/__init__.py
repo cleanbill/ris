@@ -11,11 +11,12 @@ def index():
 def create_app():
 	app = Flask(__name__)
 	app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+	app.config['SQLALCHEMY_ECHO'] = True
 	app.config['DEBUG'] = True
 	app.secret_key = 'DEVELOPMENT KEY CHANGE ME'
 
 	# register all blueprints here
-	app.register_blueprint(examplemodule.bp)
+	#app.register_blueprint(examplemodule.bp)
 	app.register_blueprint(core.bp)
 	
 	# start up sqlalchemny

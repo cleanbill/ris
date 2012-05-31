@@ -19,7 +19,7 @@ class Patient(db.Model):
 		self.sex=sex
 
 	def fullname(self):
-		return "%s %s %s" % (self.title, self.forenames, self.surname)
+		return "%s %s %s %s" % (self.title, self.forenames, self.surname, self.dob)
 
 class Identity(db.Model):
 	'''

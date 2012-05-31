@@ -16,7 +16,7 @@ def testpage():
 
 @bp.route('/register', methods=['GET','POST'])
 def register_patient():
-	form = PatientRegistrationForm(request.form)
+	form = PatientDemographicsForm(request.form)
 	if request.method == 'POST' and form.validate():
 		print "%s %s %s %s %s" % (form.forenames.data, form.surname.data, form.title.data, form.dob.data, form.sex.data)
 		patient = Patient(form.forenames.data, form.surname.data, form.title.data, form.dob.data, form.sex.data)
@@ -28,7 +28,23 @@ def register_patient():
 
 @bp.route('/')
 def mainpage():
-	return 'hello'
+	return render_template('main.html')
+
+@bp.route('/search', methods=['GET', 'POST'])
+def search_patient():
+	form = PatientDemographicsForm(request.form)
+	if request.method == 'POST' and form.validate():
+		search_url = '/patient'
+		if form.surname:
+			search_url += '/'+form.surname.data
+		if form.forenames:
+			search_url += '/'+form.forenames.data
+		if form.dob:
+			search_url += '/'+str(form.dob.data)
+		if form.sex:
+			search_url += '/'+form.sex.data
+		return redirect(search_url)
+	return render_template('search.html', form=form)
 
 @bp.route('/patients')
 def show_patients():
@@ -59,7 +75,7 @@ def search_by_name(surname, forenames=None, dob=None, sex=None):
 
 	return render_template('patient_list.html', patient_list=search.all())
 
-class PatientRegistrationForm(Form):
+class PatientDemographicsForm(Form):
 	title = TextField('Title')
 	forenames = TextField('Forenames')
 	surname = TextField('Surname') 
