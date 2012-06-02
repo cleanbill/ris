@@ -1,14 +1,14 @@
 {% extends "base.html" %}
-{% from "_helper.html" import render_field %}
+{% from "_helper.html" import render_field, render_bootstrap_field %}
 
 {% block content %}
 <form method=post action="/search">
   <dl>
-    {{ render_field(form.title) }}
-    {{ render_field(form.forenames) }}
-    {{ render_field(form.surname) }}
-    {{ render_field(form.dob) }}
-    {{ render_field(form.sex) }}
+    {{ render_bootstrap_field(form.title) }}
+    {{ render_bootstrap_field(form.forenames) }}
+    {{ render_bootstrap_field(form.surname) }}
+    {{ render_bootstrap_field(form.dob) }}
+    {{ render_bootstrap_field(form.sex) }}
   </dl>
   <p><input type=submit value=Search>
 {% endblock %}

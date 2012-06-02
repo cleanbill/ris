@@ -1,6 +1,6 @@
 from flask import request, render_template, url_for, redirect, flash
 from sqlalchemy import func
-from models import Patient
+from models import Patient, Address
 from ris.database import db
 from ris.core import bp
 from wtforms import Form, BooleanField, TextField, PasswordField, validators, DateField
@@ -10,12 +10,17 @@ def shutdown_session(response):
 	db.session.remove()
 	return response
 
+@bp.route('/test')
+def test():
+	return render_template('formtest.html')
+
 @bp.route('/register', methods=['GET','POST'])
 def register_patient():
 	form = PatientDemographicsForm(request.form)
 	if request.method == 'POST' and form.validate():
-		print "%s %s %s %s %s" % (form.forenames.data, form.surname.data, form.title.data, form.dob.data, form.sex.data)
 		patient = Patient(form.forenames.data, form.surname.data, form.title.data, form.dob.data, form.sex.data)
+		address = Address('main', form.address_line1.data, form.address_line2.data, form.address_line3.data, form.address_line4.data, form.post_code.data)
+		patient.addresses.append(address)
 		db.session.add(patient)
 		db.session.commit()
 		flash('Patient Registered')

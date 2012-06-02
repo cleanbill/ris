@@ -48,6 +48,13 @@ class Address(db.Model):
 	address_line4 = db.Column('address_line4', String(200))
 	post_code = db.Column('post_code', String(200))
 
+	def __init__(self, address_type, address_line1, address_line2, address_line3, address_line4, post_code):
+		self.address_type = address_type
+		self.address_line1 = address_line1
+		self.address_line2 = address_line2
+		self.address_line3 = address_line3
+		self.address_line4 = address_line4
+		self.post_code = post_code
 
 class Appointment(db.Model):
 	'''

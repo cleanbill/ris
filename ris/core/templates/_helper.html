@@ -10,3 +10,13 @@
   {% endif %}
   </dd>
 {% endmacro %}
+
+{% macro render_bootstrap_field(field) %}
+  <div class="control-group" style="margin-bottom:10px">
+    <label class="control-label" for={{ field.id }}>{{ field.label }}</label>
+      <div class="controls">
+        {{ field(**kwargs)|safe }}
+      </div>
+  </div>
+
+  {% endmacro %}

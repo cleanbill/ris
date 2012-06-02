@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Bootstrap, from Twitter</title>
+    <title>Cleanbill</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -51,8 +51,9 @@
       </div>
     </div>
 
+        <div class="container-fluid">
 
-    <div class="row">
+    <div class="row-fluid">
       <div class="span2">
         <div>
           <ul>
@@ -65,15 +66,14 @@
       </div>
       <div class="span10">
         {% block content %}
-        <div class="container">
 
           <h1>Bootstrap starter template</h1>
           <p>If you can read this it means someone didn't set the content block in the template for this page!<br>
             All you get is this message and a barebones HTML document.</p>
 
-        </div> <!-- /container -->
         {% endblock %}
 
+        </div> <!-- /container -->
       </div>      
     </div>
 
