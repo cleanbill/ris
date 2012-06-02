@@ -1,17 +1,35 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% for patient in patient_list %}
-<div>
-<b>{{ patient.id }}</b>{{ patient.fullname() }}
-{% for address in patient.addresses %}
-	<i>{{address.address_line1}},
-	{{address.address_line2}},
-	{{address.address_line3}},
-	{{address.address_line4}},
-	{{address.post_code}}
-</i>
-{% endfor %}
-</div>
-{% endfor %}
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<td><b>ID</b></td>
+			<td><b>Surname</b></td>
+			<td><b>Forenames</b></td>
+			<td><b>DOB</b></td>
+			<td><b>Address</b></td>
+		</tr>
+	</thead>
+	<tbody>
+		{% for patient in patient_list %}
+		<tr>
+			<td>{{ patient.id }}</td>
+			<td>{{ patient.surname }}</td>
+			<td>{{ patient.forenames }}</td>
+			<td>{{ patient.dob }}</td>
+			<td>
+				{% for address in patient.addresses %}
+					<i>{{address.address_line1}},
+					{{address.address_line2}},
+					{{address.address_line3}},
+					{{address.address_line4}},
+					{{address.post_code}}
+				</i>
+				{% endfor %}
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
 {% endblock %}

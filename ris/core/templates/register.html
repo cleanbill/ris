@@ -5,11 +5,11 @@
 <div>
 	<h1>Register a new patient</h1>
 </div>
-
+	<div class="span10">
 		<form method=post action="/register" class="form-horizontal">
-			<div class="row-fluid">
-				<div class="span5">
 				<fieldset>
+			<div class="row">
+				<div class="span5">
 			    {{ render_bootstrap_field(form.title) }}
 			    {{ render_bootstrap_field(form.forenames) }}
 			    {{ render_bootstrap_field(form.surname) }}
@@ -22,14 +22,14 @@
 			    {{ render_bootstrap_field(form.address_line3) }}
 			    {{ render_bootstrap_field(form.address_line4) }}
 			    {{ render_bootstrap_field(form.post_code) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-actions">
+				<button class="btn btn-large btn-primary" type=submit value=Register>Register</button>
+				</div>
+			</div>
 			  </fieldset>
-			</div>
-		</div>
-		<div class="row-fluid">
-			<div class="span2" offset>
-			<input type=submit value=Register>
-			</div>
-		</div>
-	</div>
 	</form>
+</div>
 {% endblock %}

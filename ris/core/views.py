@@ -79,10 +79,10 @@ def search_by_name(surname, forenames=None, dob=None, sex=None):
 
 class PatientDemographicsForm(Form):
 	title = TextField('Title')
-	forenames = TextField('Forenames')
-	surname = TextField('Surname') 
+	forenames = TextField('Forenames', [validators.required()])
+	surname = TextField('Surname', [validators.required()]) 
 	dob = DateField('Date of Birth', [validators.optional()],format='%d/%m/%Y')
-	sex = TextField('Sex' )
+	sex = TextField('Sex', [validators.AnyOf(('M','F','U','I'))])
 	address_line1 = TextField('Address Line 1')
 	address_line2 = TextField('Address Line 2' )
 	address_line3 = TextField('Address Line 3' )
