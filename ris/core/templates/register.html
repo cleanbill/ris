@@ -1,12 +1,33 @@
 {% extends "base.html" %}
 {% from "_helper.html" import render_field %}
-<form method=post action="/register">
-  <dl>
-    {{ render_field(form.title) }}
-    {{ render_field(form.forenames) }}
-    {{ render_field(form.surname) }}
-    {{ render_field(form.dob) }}
-    {{ render_field(form.sex) }}
-  </dl>
-  <p><input type=submit value=Register>
-</form>
+
+{% block content %}
+<div class="hero-unit">
+	<h1>Register a new patient</h1>
+	<div class="row">
+		<form method=post action="/register" class="form-horizontal">
+		  <div class="span4">
+		  <dl class="dl-horizontal">
+		    {{ render_field(form.title) }}
+		    {{ render_field(form.forenames) }}
+		    {{ render_field(form.surname) }}
+		    {{ render_field(form.dob) }}
+		    {{ render_field(form.sex) }}
+		  </dl>
+		</div>
+		<div class="span4">
+		  <dl class="dl-horizontal">
+		    {{ render_field(form.address_line1) }}
+		    {{ render_field(form.address_line2) }}
+		    {{ render_field(form.address_line3) }}
+		    {{ render_field(form.address_line4) }}
+		    {{ render_field(form.post_code) }}
+		  </dl>
+		</div>
+		<div class="row">
+			<input type=submit value=Register>
+		</div>
+	</div>
+	</form>
+</div>
+{% endblock %}

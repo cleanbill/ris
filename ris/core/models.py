@@ -1,4 +1,5 @@
 from sqlalchemy import Table, Column, Integer, String, Date, Binary, ForeignKey
+from sqlalchemy.orm import relationship
 from ris.database import db 
 
 class Patient(db.Model):
@@ -10,6 +11,8 @@ class Patient(db.Model):
 	dob = db.Column(Date)
 	soundexkey = db.Column(String(100))
 	sex = db.Column(String(1))
+	addresses = relationship("Address")
+
 
 	def __init__(self, forenames, surname, title, dob, sex):
 		self.surname=surname

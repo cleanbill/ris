@@ -1,7 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
 {% for patient in patient_list %}
-
 <div>
-{{ patient.fullname() }}
+<b>{{ patient.id }}</b>{{ patient.fullname() }}
 </div>
-
 {% endfor %}
+{% endblock %}

@@ -10,10 +10,6 @@ def shutdown_session(response):
 	db.session.remove()
 	return response
 
-@bp.route('/test')
-def testpage():
-	return render_template('main.html') 
-
 @bp.route('/register', methods=['GET','POST'])
 def register_patient():
 	form = PatientDemographicsForm(request.form)
@@ -35,15 +31,16 @@ def search_patient():
 	form = PatientDemographicsForm(request.form)
 	if request.method == 'POST' and form.validate():
 		search_url = '/patient'
-		if form.surname:
+		if form.surname.data:
 			search_url += '/'+form.surname.data
-		if form.forenames:
+		if form.forenames.data:
 			search_url += '/'+form.forenames.data
-		if form.dob:
+		if form.dob.data:
 			search_url += '/'+str(form.dob.data)
-		if form.sex:
+		if form.sex.data:
 			search_url += '/'+form.sex.data
-		return redirect(search_url)
+		return search_by_name(form.surname.data, form.forenames.data, form.dob.data, form.sex.data)
+		#redirect(search_url)
 	return render_template('search.html', form=form)
 
 @bp.route('/patients')
@@ -79,7 +76,11 @@ class PatientDemographicsForm(Form):
 	title = TextField('Title')
 	forenames = TextField('Forenames')
 	surname = TextField('Surname') 
-	dob = DateField('Date of Birth', format='%d/%m/%Y')
-	sex = TextField('sex' )
-
+	dob = DateField('Date of Birth', [validators.optional()],format='%d/%m/%Y')
+	sex = TextField('Sex' )
+	address_line1 = TextField('Address Line 1')
+	address_line2 = TextField('Address Line 2' )
+	address_line3 = TextField('Address Line 3' )
+	address_line4 = TextField('Address Line 4' )
+	post_code = TextField('Post Code')
 
