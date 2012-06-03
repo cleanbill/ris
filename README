@@ -1,1 +1,17 @@
-Bingo!
+# A quick non-script about setting up the cleanbill ris stuff
+# I did this on 2/6/2012 with Python 2.7.3 on Ubuntu 12.4 acer laptop
+# 
+# 1, which you have already done, right? After adding your ssh keys to github
+git clone git://github.com/cleanbill/ris.git
+# 2, set up python....
+sudo apt-get install python-pip
+sudo pip install -U -r requirements.txt # NB. you can also make this file from your current env. by pip freeze > requirements.txt
+# 3, Get it running
+python runserver.py
+# 4, get hacking.... 
+#    and 
+git -m "This is the change" blar.py
+# 5, And push it back 
+push git@github.com:cleanbill/ris.git
+
+
