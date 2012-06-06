@@ -12,7 +12,7 @@ python runserver.py
 #    and 
 git -m "This is the change" blar.py
 # 5, And push it back 
-push git@github.com:cleanbill/ris.git
+git push git@github.com:cleanbill/ris.git
 # 6. And keep things up to date
 git pull git@github.com:cleanbill/ris.git
 
