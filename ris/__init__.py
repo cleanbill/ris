@@ -1,5 +1,8 @@
 from flask import Flask, jsonify, request, Blueprint
+from flask.ext.principal import Principal, RoleNeed, UserNeed, identity_loaded
+
 from database import db
+from permissions import admin_permission, user_permission
 import examplemodule, core
 
 root_blueprint = Blueprint('root','ris', url_prefix='/')
@@ -18,8 +21,19 @@ def create_app():
 	# register all blueprints here
 	#app.register_blueprint(examplemodule.bp)
 	app.register_blueprint(core.bp)
-	
+	configure_login(app)
+
 	# start up sqlalchemny
 	db.init_app(app)
 	db.echo = True
 	return app
+
+def configure_login(app):
+
+    principal = Principal(app)
+
+    @identity_loaded.connect_via(app)
+    def on_identity_loaded(sender, identity):
+        #g.user = User.query.from_identity(identity)
+		print 'adding identity role %s ' % identity.name
+		identity.provides.add(RoleNeed('user'))

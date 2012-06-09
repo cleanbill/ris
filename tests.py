@@ -54,7 +54,7 @@ class DatabaseTest(TestCase):
 	def test_main_page(self):
 		rv = self.app.test_client().get('/')
 		print rv.data
-		assert 'hello' in rv.data
+		assert 'Welcome' in rv.data
 
 	def test_userPersistance(self):
 		user1 = User('admin', 'password')

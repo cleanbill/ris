@@ -1,5 +1,6 @@
 *.pyc
 ./ris/test.db
+*.db
 *sublime*
 Scripts
 Lib
