@@ -3,7 +3,7 @@
 
 {% block content %}
 
-	<form method=post action="/test/login" class="well">
+	<form method=post action="{{ url_for('.test_login') }}" class="well">
 		<fieldset>
 			{{render_bootstrap_field(form.username)}}
 			{{render_bootstrap_field(form.password)}}

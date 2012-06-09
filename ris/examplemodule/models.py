@@ -3,8 +3,8 @@ from ris.database import db
 from datetime import datetime as pydatetime
 import hashlib
 
-class User(db.Model):
-	__tablename__ = 'users'
+class ExampleUser(db.Model):
+	__tablename__ = 'example_users'
 	userid = db.Column('userid', Integer, primary_key=True)
 	username = db.Column('username', String(50), unique=True)
 	passwordhash = db.Column('passwordhash',String(50), nullable=False)

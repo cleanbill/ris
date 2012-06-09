@@ -6,13 +6,15 @@ git clone git://github.com/cleanbill/ris.git
 # 2, set up python....
 sudo apt-get install python-pip
 sudo pip install -U -r requirements.txt # NB. you can also make this file from your current env. by pip freeze > requirements.txt
-# 3, Get it running
+# 3, Build the database
+python initdb.py
+# 4, Get it running
 python runserver.py
-# 4, get hacking.... 
+# 5, get hacking.... 
 #    and 
 git -m "This is the change" blar.py
-# 5, And push it back 
+# 6, And push it back 
 git push git@github.com:cleanbill/ris.git
-# 6. And keep things up to date
+# 7. And keep things up to date
 git pull git@github.com:cleanbill/ris.git
 
