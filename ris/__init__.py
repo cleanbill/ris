@@ -36,4 +36,10 @@ def configure_login(app):
     def on_identity_loaded(sender, identity):
         #g.user = User.query.from_identity(identity)
 		print 'adding identity role %s ' % identity.name
-		identity.provides.add(RoleNeed('user'))
+		users =('chris','mick','root')
+		if identity.name in users:
+			identity.provides.add(RoleNeed('user'))
+			if identity.name == 'root':
+				identity.provides.add(RoleNeed('admin'))
+		else:
+			print 'invalid user'	

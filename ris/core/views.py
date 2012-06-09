@@ -28,6 +28,11 @@ def test_login():
 	else:
 		return render_template('testlogin.html', form=form)
 
+@bp.route('/test/logout')
+def test_logout():
+	identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
+	return redirect(url_for('.test'))
+
 @bp.route('/test')
 @admin_permission.require(401)
 def test():
