@@ -14,6 +14,7 @@ def shutdown_session(response):
 
 
 @bp.route('/register', methods=['GET','POST'])
+@user_permission.require(401)
 def register_patient():
 	form = PatientDemographicsForm(request.form)
 	if request.method == 'POST' and form.validate():
@@ -31,6 +32,7 @@ def mainpage():
 	return render_template('index.html')
 
 @bp.route('/search', methods=['GET', 'POST'])
+@user_permission.require(401)
 def search_patient():
 	form = PatientDemographicsForm(request.form)
 	if request.method == 'POST' and form.validate():
@@ -48,12 +50,14 @@ def search_patient():
 	return render_template('search.html', form=form)
 
 @bp.route('/patients')
+@user_permission.require(401)
 def show_patients():
 	patient_list = db.session.query(Patient).all()
 
 	return render_template('patient_list.html', patient_list=patient_list)
 
 @bp.route('/patient/<int:patient_id>')
+@user_permission.require(401)
 def search_by_id(patient_id):
 	patient = db.session.query(Patient).filter(Patient.id == patient_id).first()
 	if patient:
@@ -65,6 +69,7 @@ def search_by_id(patient_id):
 @bp.route('/patient/<surname>/<forenames>')
 @bp.route('/patient/<surname>/<forenames>/<dob>')
 @bp.route('/patient/<surname>/<forenames>/<dob>/<sex>')
+@user_permission.require(401)
 def search_by_name(surname, forenames=None, dob=None, sex=None):
 	search = db.session.query(Patient).filter(Patient.surname==surname)
 	if forenames:

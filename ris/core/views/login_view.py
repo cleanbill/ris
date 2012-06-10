@@ -8,8 +8,8 @@ from ris.core.models.user import User
 
 
 class LoginForm(Form):
-	username = TextField('Username',[validators.required()])
-	password = PasswordField('Password',[validators.required()])
+	username = TextField('username',[validators.required()])
+	password = PasswordField('password',[validators.required()])
 
 @bp.after_request
 def shutdown_session(response):
@@ -32,7 +32,7 @@ def test_login():
 			identity_changed.send(current_app._get_current_object(), identity=Identity(username))
 			return redirect(url_for('.test'))
 		else:
-			flash('Incorrect Username or password.',u'Login Failed')
+			flash('Sorry <b>%s</b> there is something wrong about your log on' % (username) ,u'Login Failed')
 			return redirect(url_for('.test_login')) 
 	else:
 		return render_template('testlogin.html', form=form)
