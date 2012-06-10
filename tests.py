@@ -40,14 +40,14 @@ class UserModelTest(TestCase):
 		user1 = User('admin','password')
 
 		# check we're actually hashing it
-		self.assertNotEquals(user1.passwordhash, 'password')
+		self.assertNotEquals(user1.password, 'password')
 
 		# check hashing is consistant 
 		self.assertEquals(user1.hashpassword('password','salt'), user1.hashpassword('password','salt'))
 
 		# check two users with the same pass dont generate same hash
 		user2 = User('admin2','password')
-		self.assertNotEquals(user1.passwordhash, user2.passwordhash)
+		self.assertNotEquals(user1.password, user2.password)
 
 	def test_login_form(self):
 		self.assertEquals(0, db.session.query(User).count())
