@@ -70,18 +70,20 @@ class UserModelTest(TestCase):
 		db.session.add(user_bob)
 		db.session.commit()
 
+                bad_login = "there is something wrong about your log on"
+
 		# do the login again (with wrong username right password)
 		response =  self.app.test_client().post('/login', data=dict(username='notbob', password='password'))
-		assert 'wrong password' in response.data
+		assert bad_login in response.data
 
 		# do the login again (with right username wrong password)
 		response =  self.app.test_client().post('/login', data=dict(username='bob', password='notpassword'))
-		assert 'wrong password' in response.data
+		assert bad_login in response.data
 
 		# do the login again (with right username right password)
 		response =  self.app.test_client().post('/login', data=dict(username='bob', password='password'))
 		print response
-		assert 'wrong password' not in response.data
+		assert bad_login not in response.data
 
 '''
 class DatabaseTest(TestCase)():
