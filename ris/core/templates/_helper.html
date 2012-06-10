@@ -26,4 +26,18 @@
   {% endif %}
   </div>
 
-  {% endmacro %}
+{% endmacro %}
+
+{% macro render_flash_errors() %}
+  {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+      {% for category, message in messages %}
+      <div class="alert alert-error">
+        <h4>{{ category }}</h4>
+        {{ message }}
+      </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+{% endmacro %}

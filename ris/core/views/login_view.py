@@ -1,5 +1,5 @@
 from wtforms import Form, BooleanField, TextField, PasswordField, validators, DateField
-from flask import current_app, request, render_template, url_for, redirect, flash
+from flask import current_app, request, render_template, url_for, redirect, flash, session
 from flask.ext.principal import identity_changed, Identity, AnonymousIdentity
 from ris.permissions import admin_permission, user_permission
 from ris.database import db
@@ -28,19 +28,22 @@ def test_login():
 		except:
 			return 'No users found (you need at least one). Have you run initdb.py?'
 
-		if user and user.checkpassword(password): 
+		if user and user.checkpassword(password):
+			session['user']=user
 			identity_changed.send(current_app._get_current_object(), identity=Identity(username))
 			return redirect(url_for('.test'))
 		else:
-			flash('Sorry <b>%s</b> there is something wrong about your log on' % (username) ,u'Login Failed')
+			flash('Sorry %s there is something wrong about your log on' % (username) ,u'Login Failed')
 			return redirect(url_for('.test_login')) 
 	else:
 		return render_template('testlogin.html', form=form)
 
 @bp.route('/logout')
 def test_logout():
+	if session.has_key('user'):
+		del session['user']
 	identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
-	return redirect(url_for('.test'))
+	return redirect(url_for('.test_login'))
 
 @bp.route('/test')
 @admin_permission.require(401)

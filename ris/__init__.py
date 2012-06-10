@@ -1,5 +1,5 @@
-from flask import Flask, jsonify, request, Blueprint
-from flask.ext.principal import Principal, RoleNeed, UserNeed, identity_loaded
+from flask import Flask, jsonify, request, Blueprint, g, session
+from flask.ext.principal import Principal, RoleNeed, UserNeed, identity_loaded, AnonymousIdentity
 
 from database import db
 from permissions import admin_permission, user_permission
@@ -16,7 +16,7 @@ def index():
 def create_app():
 	app = Flask(__name__)
 	app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-	app.config['SQLALCHEMY_ECHO'] = True
+	app.config['SQLALCHEMY_ECHO'] = False
 	app.config['DEBUG'] = True
 	app.secret_key = 'DEVELOPMENT KEY CHANGE ME'
 
@@ -37,19 +37,24 @@ def configure_login(app):
 
     @identity_loaded.connect_via(app)
     def on_identity_loaded(sender, identity):
-        #g.user = User.query.from_identity(identity)
-		print 'adding identity role %s ' % identity.name
-		try:
+    	# revoke any roles for anon users
+		if identity.name == AnonymousIdentity().name:
+			identity.provides.clear()
+			return
+
+		# get user from session
+		if session.has_key('user'):
+			user = session['user']
+
+			if user.username != identity.name:
+				user = None
+
+		# its possible this might not be needed
+		if user == None:
 			user = db.session.query(User).filter(User.username == identity.name).first()
+			session['user'] = user
 
-			if user:
-				print 'adding role: user'
-				identity.provides.add(RoleNeed('user'))
-				if user.admin:
-					print 'adding role: admin'
-					identity.provides.add(RoleNeed('admin'))
-			else:
-				print 'invalid user'	
-
-		except:
-			print 'no users, please run initdb.py'
+		#TODO: add proper role lookups. for now we just have admin or normal user
+		identity.provides.add(RoleNeed('user'))
+		if user.admin:
+			identity.provides.add(RoleNeed('admin'))
