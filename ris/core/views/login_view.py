@@ -23,9 +23,12 @@ def test_login():
 		username = form.username.data
 		password = form.password.data
 
-		user = db.session.query(User).filter(User.username == username).first()
-
-		if user.checkpassword(password): 
+		try:
+			user = db.session.query(User).filter(User.username == username).first()
+		except:
+			return 'No users found (you need at least one). Have you run initdb.py?'
+			
+		if user and user.checkpassword(password): 
 			identity_changed.send(current_app._get_current_object(), identity=Identity(username))
 			return redirect(url_for('.test'))
 		else:

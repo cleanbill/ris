@@ -26,7 +26,6 @@ def create_app():
 
 	# start up sqlalchemny
 	db.init_app(app)
-	db.echo = True
 
 	configure_login(app)
 	
@@ -40,10 +39,17 @@ def configure_login(app):
     def on_identity_loaded(sender, identity):
         #g.user = User.query.from_identity(identity)
 		print 'adding identity role %s ' % identity.name
-		user = db.session.query(User).filter(User.username == identity.name).first()
-		if user:
-			identity.provides.add(RoleNeed('user'))
-			if user.admin:
-				identity.provides.add(RoleNeed('admin'))
-		else:
-			print 'invalid user'	
+		try:
+			user = db.session.query(User).filter(User.username == identity.name).first()
+
+			if user:
+				print 'adding role: user'
+				identity.provides.add(RoleNeed('user'))
+				if user.admin:
+					print 'adding role: admin'
+					identity.provides.add(RoleNeed('admin'))
+			else:
+				print 'invalid user'	
+
+		except:
+			print 'no users, please run initdb.py'
