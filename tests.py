@@ -80,9 +80,20 @@ class UserModelTest(TestCase):
 
 		# do the login again (with right username right password)
 		response =  self.app.test_client().post('/login', data=dict(username='bob', password='password'))
-		print response
 		assert 'wrong password' not in response.data
 
+
+		response = self.login('bob', 'password')
+		response = self.app.test_client().get('/unit_test/useronly',follow_redirects=True)
+		print response.data
+		assert 'hello user' in response.data
+
+
+	def login(self, username, password):
+		return self.app.test_client().post('/login', data=dict(username=username, password=password), follow_redirects=True)
+
+	def logout(self):
+		return self.app.test_client().post('/logout', follow_redirects=True)
 '''
 class DatabaseTest(TestCase)():
 

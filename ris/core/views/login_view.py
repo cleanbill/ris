@@ -27,12 +27,13 @@ def test_login():
 			user = db.session.query(User).filter(User.username == username).first()
 		except:
 			return 'No users found (you need at least one). Have you run initdb.py?'
-			
+
 		if user and user.checkpassword(password): 
 			identity_changed.send(current_app._get_current_object(), identity=Identity(username))
 			return redirect(url_for('.test'))
 		else:
-			return 'wrong password. get out %s' % (password)
+			flash('Incorrect Username or password.',u'Login Failed')
+			return redirect(url_for('.test_login')) 
 	else:
 		return render_template('testlogin.html', form=form)
 

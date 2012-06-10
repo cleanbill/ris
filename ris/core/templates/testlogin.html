@@ -2,7 +2,16 @@
 {% from "_helper.html" import render_field, render_bootstrap_field %}
 
 {% block content %}
-
+{% with messages = get_flashed_messages(with_categories=True) %}
+	{% if messages %}
+		{% for category, message in messages %}
+		<div class="alert alert-error">
+			<h4>{{ category }}</h4>
+			{{ message }}
+		</div>
+		{% endfor %}
+	{% endif %}
+{% endwith %}
 	<form method=post action="{{ url_for('.test_login') }}" class="well">
 		<fieldset>
 			{{render_bootstrap_field(form.username)}}
