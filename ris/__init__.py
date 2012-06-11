@@ -38,6 +38,8 @@ def configure_login(app):
     @identity_loaded.connect_via(app)
     def on_identity_loaded(sender, identity):
     	# revoke any roles for anon users
+                user = None
+ 
 		if identity.name == AnonymousIdentity().name:
 			identity.provides.clear()
 			return
@@ -46,7 +48,7 @@ def configure_login(app):
 		if session.has_key('user'):
 			user = session['user']
 
-			if user.username != identity.name:
+			if not user == None and user.username != identity.name:
 				user = None
 
 		# its possible this might not be needed
@@ -56,5 +58,5 @@ def configure_login(app):
 
 		#TODO: add proper role lookups. for now we just have admin or normal user
 		identity.provides.add(RoleNeed('user'))
-		if user.admin:
+		if not user == None and user.admin:
 			identity.provides.add(RoleNeed('admin'))
