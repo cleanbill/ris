@@ -1,4 +1,5 @@
 Flask==0.8
+Flask-Admin==1.0.1
 Flask-Principal==0.2
 Flask-SQLAlchemy==0.16
 Flask-Testing==0.3
