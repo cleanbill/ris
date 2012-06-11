@@ -17,14 +17,6 @@ class AdminIndex(AdminIndexView):
 		except:
 			pass		
 		return False
-		'''if session.has_key('user'):
-			user = session['user']
-			if user.admin:
-				return True
-		else:
-			return False
-		'''
-class UserView(ModelView):
-	testvar = ''
 
-	
+
+
