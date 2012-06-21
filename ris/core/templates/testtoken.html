@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% from "_helper.html" import render_field, render_bootstrap_field, render_flash_errors %}
+
+{% block content %}
+{{ render_flash_errors() }}
+	<h1>generate token <small>this is just for testing</small></h1>
+	<form method=post action="{{ url_for('.generatetoken') }}" class="well">
+		<fieldset>
+			{{render_bootstrap_field(form.username)}}
+			{{render_bootstrap_field(form.password)}}
+			<input type=submit value=Login>
+		</fieldset>
+	</form>
+
+
+{% endblock %}
